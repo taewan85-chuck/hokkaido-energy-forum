@@ -40,6 +40,19 @@ function render() {
   $('#recommendationTitle').textContent = result.label;
   $('#recommendationReason').textContent = result.summary;
 
+  const link = $('#scenarioLink');
+  if (result.type === 'package' && result.packageUrl) {
+    link.href = result.packageUrl;
+    link.textContent = '루스츠 패키지 상품 페이지 보기';
+    link.classList.remove('is-muted');
+    link.style.display = 'inline-flex';
+  } else {
+    link.href = '#';
+    link.textContent = '직접 예약은 아래 확인 링크를 참고하세요';
+    link.classList.add('is-muted');
+    link.style.display = 'inline-flex';
+  }
+
   const baseLabel = result.type === 'package' ? '패키지 기본가 / 1인' : '현지 기본비 / 1인';
   $('#breakdown').innerHTML = [
     [baseLabel, formatKrw(result.basePerPerson)],
@@ -144,6 +157,30 @@ async function requestsAsText() {
     requests.map((item, index) => `${index + 1}. ${item.name || '이름 미입력'}\n- 선호안: ${item.preferred}\n- 요청사항: ${item.request || '없음'}`)
   ).join('\n\n');
 }
+
+
+$('#importLocalRequests').addEventListener('click', async () => {
+  const local = JSON.parse(localStorage.getItem('hokkaido-forum-requests') || '[]');
+  if (!local.length) {
+    alert('이 브라우저에 이전 입력내용이 없습니다.');
+    return;
+  }
+  const remote = await loadRequests();
+  const existingKeys = new Set(remote.map((item) => `${item.name}|${item.preferred}|${item.request}`));
+  const merged = remote.slice();
+  let added = 0;
+  for (const item of local) {
+    const key = `${item.name}|${item.preferred}|${item.request}`;
+    if (!existingKeys.has(key)) {
+      merged.push(item);
+      existingKeys.add(key);
+      added += 1;
+    }
+  }
+  await saveRequests(merged);
+  await renderRequests();
+  alert(`${added}건을 공용 취합 리스트에 반영했습니다.`);
+});
 
 $('#copyRequests').addEventListener('click', async () => {
   const text = await requestsAsText();

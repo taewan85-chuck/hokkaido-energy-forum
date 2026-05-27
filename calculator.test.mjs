@@ -30,6 +30,7 @@ assert.equal(rusutsu.mealCostPerPerson, 230000);
 assert.equal(rusutsu.perPersonTotal, 1559000);
 assert.equal(rusutsu.groupTotal, 6236000);
 assert.ok(rusutsu.exclusions.includes('왕복 항공권'));
+assert.equal(rusutsu.packageUrl, 'https://www.jiantour.com/master/38740');
 
 const direct0627 = calculateTrip({
   scenarioId: 'diy-0627',

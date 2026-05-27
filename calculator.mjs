@@ -57,6 +57,7 @@ export const scenarios = [
     rounds: 3.5,
     holes: 63,
     packagePricePerPersonKrw: 779000,
+    packageUrl: 'https://www.jiantour.com/master/38740',
     baseDescription: '루스츠 리조트 3박4일 63홀 패키지 / 항공 불포함',
     summary: '63홀 구성과 이동 편의성이 좋습니다. 항공과 현장 추가비 확인이 핵심입니다.',
     inclusions: ['루스츠 리조트 3박', '조식', '63홀 그린피·카트피', '공항 왕복 셔틀', '여행자보험'],
