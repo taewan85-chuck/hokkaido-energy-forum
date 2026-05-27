@@ -15,6 +15,8 @@ assert.equal(base.dinnerCostPerPerson, 100000);
 assert.equal(base.mealCostPerPerson, 160000);
 assert.equal(base.perPersonTotal, 1058875);
 assert.equal(base.groupTotal, 4235500);
+assert.ok(base.inclusions.some((item) => item.includes('라쿠텐 골프')));
+assert.ok(base.inclusions.some((item) => item.includes('네이버 항공권')));
 
 const rusutsu = calculateTrip({
   scenarioId: 'package-rusutsu-0627',

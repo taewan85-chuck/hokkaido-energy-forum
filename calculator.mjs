@@ -3,7 +3,7 @@ export const EXCHANGE_RATE_JPY_TO_KRW = 9.5;
 export const scenarios = [
   {
     id: 'diy-0628',
-    label: '6/28–6/30 직접 구성',
+    label: '6/28–6/30 직접 예약',
     dateLabel: '6월 28일(일) ~ 6월 30일(화)',
     type: 'direct',
     badge: '가성비 1순위',
@@ -11,14 +11,14 @@ export const scenarios = [
     days: 3,
     rounds: 2,
     baseCostPerGroupKrw: 1795500,
-    baseDescription: '에어비앤비 2박 + 렌터카 + 현지 골프/이동비 추정',
+    baseDescription: '에어비앤비 2박 + 렌터카 직접예약 + 라쿠텐 골프 직접예약 + 현지 이동비 추정',
     summary: '가격을 가장 낮추는 선택지입니다. 다만 2박 3일이라 라운드 수와 여유는 제한됩니다.',
-    inclusions: ['에어비앤비 2박 추정', '렌터카/보험/유류 일부 추정', '평일 중심 골프 2라운드 추정'],
+    inclusions: ['에어비앤비 2박 추정', '렌터카 예약 필요', '라쿠텐 골프 기준 티타임 확인 필요', '네이버 항공권 기준 항공가 확인 필요', '평일 중심 골프 2라운드 추정'],
     exclusions: ['왕복 항공권', '식비', '골프백 수하물', '현장 추가비', '티타임 확정 필요'],
   },
   {
     id: 'diy-0627',
-    label: '6/27–6/30 직접 구성',
+    label: '6/27–6/30 직접 예약',
     dateLabel: '6월 27일(토) ~ 6월 30일(화)',
     type: 'direct',
     badge: '자유도·균형안',
@@ -26,9 +26,9 @@ export const scenarios = [
     days: 4,
     rounds: 3,
     baseCostPerGroupKrw: 2869000,
-    baseDescription: '에어비앤비 3박 + 렌터카 + 3라운드 현지비 추정',
+    baseDescription: '에어비앤비 3박 + 렌터카 직접예약 + 라쿠텐 골프 직접예약 + 3라운드 현지비 추정',
     summary: '숙소 고정과 자유도를 살리면서 3라운드까지 노릴 수 있는 균형안입니다.',
-    inclusions: ['에어비앤비 3박 추정', '렌터카/보험/유류 일부 추정', '골프 3라운드 추정'],
+    inclusions: ['에어비앤비 3박 추정', '렌터카 예약 필요', '라쿠텐 골프 기준 티타임 확인 필요', '네이버 항공권 기준 항공가 확인 필요', '골프 3라운드 추정'],
     exclusions: ['왕복 항공권', '식비', '골프백 수하물', '현장 추가비', '주말 골프요금 영향'],
   },
   {

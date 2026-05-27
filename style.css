@@ -103,3 +103,11 @@ li { padding: 12px 14px; background: rgba(15,139,104,.07); border-radius: 16px; 
 }
 
 .button-row { display: flex; gap: 8px; flex-wrap: wrap; justify-content: flex-end; }
+
+.reference-panel { margin-bottom: 22px; }
+.reference-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-top: 18px; }
+.reference-grid a { display: grid; gap: 8px; padding: 18px; border-radius: 20px; background: #fff; border: 1px solid var(--line); color: var(--ink); text-decoration: none; transition: .18s ease; }
+.reference-grid a:hover { transform: translateY(-2px); box-shadow: 0 14px 34px rgba(15,80,65,.12); border-color: var(--green); }
+.reference-grid strong { font-size: 18px; }
+.reference-grid span { color: var(--muted); line-height: 1.45; }
+@media (max-width: 860px) { .reference-grid { grid-template-columns: 1fr; } }
