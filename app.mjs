@@ -43,7 +43,7 @@ function render() {
   const link = $('#scenarioLink');
   if (result.type === 'package' && result.packageUrl) {
     link.href = result.packageUrl;
-    link.textContent = '루스츠 패키지 상품 페이지 보기';
+    link.textContent = result.id === 'package-rusutsu-0625' ? '6/25 출발 패키지 상품 페이지 보기' : '루스츠 패키지 상품 페이지 보기';
     link.classList.remove('is-muted');
     link.style.display = 'inline-flex';
   } else {

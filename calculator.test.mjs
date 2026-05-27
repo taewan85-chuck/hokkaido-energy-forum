@@ -42,7 +42,7 @@ const direct0627 = calculateTrip({
 assert.equal(direct0627.rounds, 3);
 assert.equal(direct0627.perPersonTotal, 1347250);
 
-assert.equal(scenarios.length, 4);
+assert.equal(scenarios.length, 5);
 console.log('calculator tests passed');
 
 const weekdayAlt = calculateTrip({
@@ -57,3 +57,16 @@ assert.equal(weekdayAlt.nights, 2);
 assert.equal(weekdayAlt.mealCostPerPerson, 160000);
 assert.equal(weekdayAlt.perPersonTotal, 1101625);
 assert.equal(weekdayAlt.groupTotal, 4406500);
+
+const rusutsu0625 = calculateTrip({
+  scenarioId: 'package-rusutsu-0625',
+  people: 4,
+  flightPerPerson: 450000,
+  baggagePerPerson: 0,
+  extraPerPerson: 0,
+});
+assert.equal(rusutsu0625.days, 4);
+assert.equal(rusutsu0625.nights, 3);
+assert.equal(rusutsu0625.mealCostPerPerson, 230000);
+assert.equal(rusutsu0625.perPersonTotal, 1459000);
+assert.ok(rusutsu0625.packageUrl.includes('onlinetour.co.kr'));
