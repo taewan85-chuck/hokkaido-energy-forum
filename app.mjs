@@ -202,3 +202,12 @@ $('#clearRequests').addEventListener('click', async () => {
 
 render();
 renderRequests();
+
+
+const scenarioLinkClick = $('#scenarioLink');
+scenarioLinkClick.addEventListener('click', (event) => {
+  if (scenarioLinkClick.href && scenarioLinkClick.href !== window.location.href + '#') {
+    event.preventDefault();
+    window.open(scenarioLinkClick.href, '_blank', 'noopener');
+  }
+});
