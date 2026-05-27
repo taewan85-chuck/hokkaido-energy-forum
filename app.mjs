@@ -192,11 +192,6 @@ $('#copyRequests').addEventListener('click', async () => {
   }
 });
 
-$('#mailRequests').addEventListener('click', async () => {
-  const subject = encodeURIComponent('청정에너지사업본부 훗가이토 에너지 포럼 요청사항');
-  const body = encodeURIComponent(await requestsAsText());
-  window.location.href = `mailto:TAEWANA.KWON@SAMSUNG.COM?subject=${subject}&body=${body}`;
-});
 
 $('#clearRequests').addEventListener('click', async () => {
   if (confirm('취합 리스트를 모두 삭제할까요?')) {
