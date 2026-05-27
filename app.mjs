@@ -44,8 +44,8 @@ function render() {
   $('#breakdown').innerHTML = [
     [baseLabel, formatKrw(result.basePerPerson)],
     ['항공권 / 1인', formatKrw(result.flightPerPerson)],
-    [`점심 ${result.days}회 × 20,000원`, formatKrw(result.lunchCostPerPerson)],
-    [`저녁 ${result.nights}회 × 50,000원`, formatKrw(result.dinnerCostPerPerson)],
+    [`점심 ${result.days}회 × 1인 20,000원`, formatKrw(result.lunchCostPerPerson)],
+    [`저녁 ${result.nights}회 × 1인 50,000원`, formatKrw(result.dinnerCostPerPerson)],
     ['골프백 수하물 / 1인', formatKrw(result.baggagePerPerson)],
     ['현장 추가비 / 1인', formatKrw(result.extraPerPerson)],
   ].map(([label, value]) => `<div class="row"><span>${label}</span><strong>${value}</strong></div>`).join('');
