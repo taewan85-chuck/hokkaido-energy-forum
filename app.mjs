@@ -58,23 +58,44 @@ function render() {
   });
 }
 
-function loadRequests() {
+const REQUEST_STORE_URL = 'https://jsonblob.com/api/jsonBlob/019e67ab-b6ce-71cd-bf42-f403e96fa5c9';
+let sharedRequests = [];
+let storeOnline = false;
+
+async function loadRequests() {
   try {
-    return JSON.parse(localStorage.getItem('hokkaido-forum-requests') || '[]');
-  } catch {
-    return [];
+    const response = await fetch(REQUEST_STORE_URL, { cache: 'no-store' });
+    const data = await response.json();
+    sharedRequests = Array.isArray(data.requests) ? data.requests : [];
+    storeOnline = true;
+  } catch (error) {
+    sharedRequests = JSON.parse(localStorage.getItem('hokkaido-forum-requests') || '[]');
+    storeOnline = false;
+  }
+  return sharedRequests;
+}
+
+async function saveRequests(requests) {
+  sharedRequests = requests;
+  localStorage.setItem('hokkaido-forum-requests', JSON.stringify(requests));
+  try {
+    await fetch(REQUEST_STORE_URL, {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ requests }),
+    });
+    storeOnline = true;
+  } catch (error) {
+    storeOnline = false;
+    throw error;
   }
 }
 
-function saveRequests(requests) {
-  localStorage.setItem('hokkaido-forum-requests', JSON.stringify(requests));
-}
-
-function renderRequests() {
-  const requests = loadRequests();
+async function renderRequests() {
+  const requests = await loadRequests();
   const list = $('#requestList');
   if (!requests.length) {
-    list.innerHTML = '<div class="request-item"><strong>아직 등록된 요청사항이 없습니다.</strong><p>참석자별 요청사항을 추가하면 이곳에 쌓입니다.</p></div>';
+    list.innerHTML = `<div class="request-item"><strong>아직 등록된 요청사항이 없습니다.</strong><p>참석자별 요청사항을 추가하면 이곳에 함께 표시됩니다.</p><small>${storeOnline ? '공용 취합 리스트 연결됨' : '공용 취합 리스트 연결 실패 - 임시 저장 모드'}</small></div>`;
     return;
   }
   list.innerHTML = requests.map((item, index) => `
@@ -95,7 +116,7 @@ $$('.choice').forEach((button) => {
 
 Object.values(inputs).forEach((input) => input.addEventListener('input', render));
 
-$('#requestForm').addEventListener('submit', (event) => {
+$('#requestForm').addEventListener('submit', async (event) => {
   event.preventDefault();
   const item = {
     name: $('#name').value.trim(),
@@ -103,23 +124,21 @@ $('#requestForm').addEventListener('submit', (event) => {
     request: $('#request').value.trim(),
     createdAt: new Date().toISOString(),
   };
-  const requests = loadRequests();
+  const requests = await loadRequests();
   requests.push(item);
-  saveRequests(requests);
-  renderRequests();
-
-  const subject = encodeURIComponent(`[훗가이토 에너지 포럼 요청사항] ${item.name || '이름 미입력'}`);
-  const body = encodeURIComponent(`이름: ${item.name || '이름 미입력'}
-선호안: ${item.preferred}
-
-요청사항:
-${item.request || '없음'}`);
-  window.location.href = `mailto:TAEWANA.KWON@SAMSUNG.COM?subject=${subject}&body=${body}`;
+  try {
+    await saveRequests(requests);
+    event.target.reset();
+    await renderRequests();
+    alert('요청사항이 공용 취합 리스트에 추가되었습니다.');
+  } catch {
+    alert('공용 저장에 실패했습니다. 잠시 후 다시 시도해주세요.');
+  }
 });
 
 
-function requestsAsText() {
-  const requests = loadRequests();
+async function requestsAsText() {
+  const requests = await loadRequests();
   if (!requests.length) return '등록된 요청사항이 없습니다.';
   return ['청정에너지사업본부 훗가이토 에너지 포럼 요청사항', ''].concat(
     requests.map((item, index) => `${index + 1}. ${item.name || '이름 미입력'}\n- 선호안: ${item.preferred}\n- 요청사항: ${item.request || '없음'}`)
@@ -127,7 +146,7 @@ function requestsAsText() {
 }
 
 $('#copyRequests').addEventListener('click', async () => {
-  const text = requestsAsText();
+  const text = await requestsAsText();
   try {
     await navigator.clipboard.writeText(text);
     alert('취합 내용이 복사되었습니다.');
@@ -136,16 +155,16 @@ $('#copyRequests').addEventListener('click', async () => {
   }
 });
 
-$('#mailRequests').addEventListener('click', () => {
+$('#mailRequests').addEventListener('click', async () => {
   const subject = encodeURIComponent('청정에너지사업본부 훗가이토 에너지 포럼 요청사항');
-  const body = encodeURIComponent(requestsAsText());
+  const body = encodeURIComponent(await requestsAsText());
   window.location.href = `mailto:TAEWANA.KWON@SAMSUNG.COM?subject=${subject}&body=${body}`;
 });
 
-$('#clearRequests').addEventListener('click', () => {
+$('#clearRequests').addEventListener('click', async () => {
   if (confirm('취합 리스트를 모두 삭제할까요?')) {
-    saveRequests([]);
-    renderRequests();
+    await saveRequests([]);
+    await renderRequests();
   }
 });
 
