@@ -97,16 +97,24 @@ Object.values(inputs).forEach((input) => input.addEventListener('input', render)
 
 $('#requestForm').addEventListener('submit', (event) => {
   event.preventDefault();
-  const requests = loadRequests();
-  requests.push({
+  const item = {
     name: $('#name').value.trim(),
     preferred: $('#preferred').value,
     request: $('#request').value.trim(),
     createdAt: new Date().toISOString(),
-  });
+  };
+  const requests = loadRequests();
+  requests.push(item);
   saveRequests(requests);
-  event.target.reset();
   renderRequests();
+
+  const subject = encodeURIComponent(`[훗가이토 에너지 포럼 요청사항] ${item.name || '이름 미입력'}`);
+  const body = encodeURIComponent(`이름: ${item.name || '이름 미입력'}
+선호안: ${item.preferred}
+
+요청사항:
+${item.request || '없음'}`);
+  window.location.href = `mailto:TAEWANA.KWON@SAMSUNG.COM?subject=${subject}&body=${body}`;
 });
 
 
