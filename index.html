@@ -32,6 +32,11 @@
         <h2>일정과 방식을 선택하세요</h2>
       </div>
       <div class="choice-grid" role="radiogroup" aria-label="여행 선택지">
+        <button class="choice" data-scenario="diy-0625">
+          <span>평일출발</span>
+          <strong>6/25–6/27 직접 예약</strong>
+          <small>2박3일 · 2라운드</small>
+        </button>
         <button class="choice is-active" data-scenario="diy-0628">
           <span>가성비</span>
           <strong>6/28–6/30 직접 예약</strong>
@@ -142,6 +147,7 @@
           <label>이름<input id="name" placeholder="예: 홍길동" /></label>
           <label>선호안
             <select id="preferred">
+              <option>6/25–6/27 직접 예약</option>
               <option>6/28–6/30 직접 예약</option>
               <option>6/27–6/30 직접 예약</option>
               <option>6/27–6/30 루스츠 패키지</option>

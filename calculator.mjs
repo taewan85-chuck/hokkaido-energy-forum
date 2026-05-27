@@ -2,6 +2,21 @@ export const EXCHANGE_RATE_JPY_TO_KRW = 9.5;
 
 export const scenarios = [
   {
+    id: 'diy-0625',
+    label: '6/25–6/27 직접 예약',
+    dateLabel: '6월 25일(목) ~ 6월 27일(토)',
+    type: 'direct',
+    badge: '평일 출발 대안',
+    nights: 2,
+    days: 3,
+    rounds: 2,
+    baseCostPerGroupKrw: 1966500,
+    baseDescription: '에어비앤비 2박 + 렌터카 직접예약 + 라쿠텐 골프 직접예약 + 현지 이동비 추정',
+    summary: '목요일 출발로 항공 선택지가 넓고, 금요일 라운드를 활용할 수 있습니다. 단 토요일 라운드가 포함되어 평일 2라운드안보다는 약간 높게 잡았습니다.',
+    inclusions: ['에어비앤비 2박 추정', '렌터카 예약 필요', '라쿠텐 골프 기준 티타임 확인 필요', '네이버 항공권 기준 항공가 확인 필요', '금요일+토요일 골프 2라운드 추정'],
+    exclusions: ['왕복 항공권', '식비', '골프백 수하물', '현장 추가비', '토요일 골프요금 영향', '티타임 확정 필요'],
+  },
+  {
     id: 'diy-0628',
     label: '6/28–6/30 직접 예약',
     dateLabel: '6월 28일(일) ~ 6월 30일(화)',
